@@ -1,7 +1,18 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsInt, IsNotEmpty, IsString } from 'class-validator';
+import { Transform } from 'class-transformer';
+import {
+  IsDate,
+  IsInt,
+  IsNotEmpty,
+  IsOptional,
+  IsString,
+} from 'class-validator';
 
 export class CreateCarDto {
+  // @IsString()
+  // @ApiProperty()
+  // id: string;
+
   @IsNotEmpty({ message: 'Informe a placa' })
   @IsString()
   @ApiProperty()
@@ -25,7 +36,7 @@ export class CreateCarDto {
   @IsNotEmpty({ message: 'Informe a UF' })
   @IsString()
   @ApiProperty()
-  uf: string;
+  UF: string;
 
   @IsNotEmpty({ message: 'Informe a categoria' })
   @IsString()
@@ -46,4 +57,13 @@ export class CreateCarDto {
   @IsNotEmpty({ message: 'Informe o ano' })
   @ApiProperty()
   ano: number;
+
+  // @Transform(({ value }) => new Date())
+  @IsOptional()
+  @IsDate()
+  createdAt: Date = new Date();
+
+  @IsOptional()
+  @IsDate()
+  updatedAt: Date = new Date();
 }
