@@ -13,8 +13,8 @@ datasource db {
 
 model Car {
   id        String     @id @default(uuid())
-  nome      String
-  chassi    String
+  placa     String     @unique
+  chassi    String     @unique
   marca     String
   modelo    String
   UF        String
@@ -23,8 +23,34 @@ model Car {
   especie   String
   ano       Int
   situacao  String
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @updatedAt
+  alertas   CarAlert[]
 
   @@map("cars")
+}
+
+model Situation {
+  id        String      @id @default(uuid())
+  nome      String
+  descricao String
+  tipo      String
+  situacao  String
+  status    String
+  createdAt DateTime    @default(now())
+  updatedAt DateTime    @updatedAt
+  veiculos  CarAlert[]
+
+  @@map("situations")
+}
+
+model CarAlert {
+  id        String      @id @default(uuid())
+  situationId  String
+  carId String
+  createdAt DateTime    @default(now())
+  alerta    Situation   @relation(fields: [situationId], references: [id])
+  veiculo   Car         @relation(fields: [carId], references: [id])
+
+  @@map("alerts")
 }
