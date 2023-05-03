@@ -2,6 +2,10 @@ import { ApiProperty } from '@nestjs/swagger';
 import { Car } from '@prisma/client';
 
 export class CarEntity implements Car {
+  constructor(partial: Partial<CarEntity>) {
+    Object.assign(this, partial);
+  }
+
   @ApiProperty()
   id: string;
 
