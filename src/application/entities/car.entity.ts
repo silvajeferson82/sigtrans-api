@@ -1,10 +1,11 @@
-import { ApiProperty } from '@nestjs/swagger';
 import { Car } from '@prisma/client';
+import { ApiProperty } from '@nestjs/swagger';
 
 export class CarEntity implements Car {
-  constructor(partial: Partial<CarEntity>) {
-    Object.assign(this, partial);
-  }
+
+  // constructor(partial: Partial<CarEntity>) {
+  //   Object.assign(this, partial);
+  // }
 
   @ApiProperty()
   id: string;
@@ -35,4 +36,10 @@ export class CarEntity implements Car {
 
   @ApiProperty()
   especie: string;
+
+  @ApiProperty()
+  createdAt: Date;
+
+  @ApiProperty()
+  updatedAt: Date;
 }
