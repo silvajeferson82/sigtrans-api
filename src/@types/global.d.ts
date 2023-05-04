@@ -31,7 +31,43 @@ declare interface IRequestCar {
   ano: number;
   createdAt?: Date;
   updatedAt?: Date;
+}
 
+declare enum Enum_Situacao {
+  LIBERACAO = 'liberação',
+  PERMISSAO = 'permissão',
+  BLOQUEIO = 'bloqueio',
+  IMPEDIMENTO = 'impedimento',
+}
+
+declare enum Enum_Tipo {
+  WHITE = 'white',
+  BLACK = 'black',
+}
+
+declare enum Enum_Status {
+  ATIVO = 'ativo',
+  INATIVO = 'inativo',
+}
+
+declare interface IAlert {
+  nome: string;
+  descricao: string;
+  tipo: Enum_Tipo;
+  situacao: Enum_Situacao;
+  status: Enum_Status;
+  createdAt: Date;
+  updatedAt: Date;
+}
+
+declare interface IRequestAlert {
+  nome: string;
+  descricao: string;
+  tipo: Enum_Tipo;
+  situacao: Enum_Situacao;
+  status: Enum_Status;
+  createdAt?: Date;
+  updatedAt?: Date;
 }
 
 declare interface ICreateCar {
@@ -41,6 +77,8 @@ declare interface ICreateCar {
 declare interface HTTPRequestObject {
   car?: ICar;
   id?: string;
+  placa?: string;
   create?: IRequestCar;
   update?: IRequestCar;
+  createAlert?: IRequestAlert;
 }
