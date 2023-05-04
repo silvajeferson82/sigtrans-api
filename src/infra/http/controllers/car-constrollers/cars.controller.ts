@@ -8,39 +8,56 @@ import {
   Delete,
 } from '@nestjs/common';
 import { ApiCreatedResponse, ApiOkResponse, ApiTags } from '@nestjs/swagger';
-import { CarEntity } from 'src/application/entities/car.entity';
-import { CreateCarUseCase } from '../../../../application/useCases/car-useCases/create-car-useCase';
+import { CarEntity } from '../../../../application/entities/car.entity';
+import {
+  CreateCarUseCase,
+  GetCarsUseCase,
+  GetCarByIdUseCase,
+  UpdateCarUseCase,
+  DeleteCarUseCase,
+} from '../../../../application/useCases';
 import { CreateCarDto } from '../../dtos/create-car.dto';
-// import { UpdateCarDto } from '../core/dtos/update-car.dto';
+import { UpdateCarDto } from '../../dtos/update-car.dto';
 
 @Controller('cars')
 @ApiTags('cars')
 export class CarsController {
-  constructor(private readonly carsService: CreateCarUseCase) {}
+  constructor(
+    private readonly createCars: CreateCarUseCase,
+    private readonly getCars: GetCarsUseCase,
+    private readonly getCarById: GetCarByIdUseCase,
+    private readonly updateCars: UpdateCarUseCase,
+    private readonly deleteCar: DeleteCarUseCase,
+  ) { }
 
   @Post()
   @ApiCreatedResponse({ type: CarEntity })
   create(@Body() createCarDto: CreateCarDto) {
-    return this.carsService.execute(createCarDto);
+    return this.createCars.execute(createCarDto);
   }
 
-  // @Get()
-  // findAll() {
-  //   return this.carsService.findAll();
-  // }
+  @Get()
+  @ApiOkResponse({ type: CarEntity, isArray: true })
+  findAll() {
+    return this.getCars.execute();
+  }
 
-  // @Get(':id')
-  // findOne(@Param('id') id: string) {
-  //   return this.carsService.findOne(+id);
-  // }
+  @Get(':id')
+  @ApiOkResponse({ type: CarEntity })
+  findOne(@Param('id') id: string) {
+    return this.getCarById.execute({ id });
+  }
 
-  // @Patch(':id')
-  // update(@Param('id') id: string, @Body() updateCarDto: UpdateCarDto) {
-  //   return this.carsService.update(+id, updateCarDto);
-  // }
+  @Patch(':id')
+  @ApiOkResponse({ type: CarEntity })
+  update(@Param('id') id: string, @Body() updateCarDto: UpdateCarDto) {
+    const data = { id, updateCarDto };
+    return this.updateCars.execute(data);
+  }
 
-  // @Delete(':id')
-  // remove(@Param('id') id: string) {
-  //   return this.carsService.remove(+id);
-  // }
+  @Delete(':id')
+  @ApiOkResponse({ type: CarEntity })
+  remove(@Param('id') id: string) {
+    return this.deleteCar.execute({ id });
+  }
 }
