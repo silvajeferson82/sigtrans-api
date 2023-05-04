@@ -9,6 +9,13 @@ export class CarRepositoryPrisma implements CarRepository {
   async findByPlate(placa: string): Promise<CarEntity> {
     const result = await this.prisma.car.findUnique({
       where: { placa },
+      include: {
+        alertas: {
+          include: {
+            alerta: true,
+          },
+        },
+      },
     });
 
     return result;
