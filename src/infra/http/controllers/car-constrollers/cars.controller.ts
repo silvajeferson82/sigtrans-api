@@ -15,9 +15,10 @@ import {
   GetCarByIdUseCase,
   UpdateCarUseCase,
   DeleteCarUseCase,
+  GetCarByPlateUseCase,
 } from '../../../../application/useCases';
-import { CreateCarDto } from '../../dtos/create-car.dto';
-import { UpdateCarDto } from '../../dtos/update-car.dto';
+import { CreateCarDto } from '../../dtos/CarDTO/create-car.dto';
+import { UpdateCarDto } from '../../dtos/CarDTO/update-car.dto';
 
 @Controller('cars')
 @ApiTags('cars')
@@ -28,36 +29,43 @@ export class CarsController {
     private readonly getCarById: GetCarByIdUseCase,
     private readonly updateCars: UpdateCarUseCase,
     private readonly deleteCar: DeleteCarUseCase,
+    private readonly getCarByPlate: GetCarByPlateUseCase,
   ) { }
 
   @Post()
   @ApiCreatedResponse({ type: CarEntity })
-  create(@Body() createCarDto: CreateCarDto) {
-    return this.createCars.execute(createCarDto);
+  async create(@Body() createCarDto: CreateCarDto) {
+    return await this.createCars.execute(createCarDto);
   }
 
   @Get()
   @ApiOkResponse({ type: CarEntity, isArray: true })
-  findAll() {
-    return this.getCars.execute();
+  async findAll() {
+    return await this.getCars.execute();
   }
 
   @Get(':id')
   @ApiOkResponse({ type: CarEntity })
-  findOne(@Param('id') id: string) {
-    return this.getCarById.execute({ id });
+  async findOne(@Param('id') id: string) {
+    return await this.getCarById.execute({ id });
+  }
+
+  @Get('plate/:plate')
+  @ApiOkResponse({ type: CarEntity })
+  async findByPlate(@Param('plate') plate: string) {
+    return await this.getCarByPlate.execute({ placa: plate });
   }
 
   @Patch(':id')
   @ApiOkResponse({ type: CarEntity })
-  update(@Param('id') id: string, @Body() updateCarDto: UpdateCarDto) {
+  async update(@Param('id') id: string, @Body() updateCarDto: UpdateCarDto) {
     const data = { id, updateCarDto };
-    return this.updateCars.execute(data);
+    return await this.updateCars.execute(data);
   }
 
   @Delete(':id')
   @ApiOkResponse({ type: CarEntity })
-  remove(@Param('id') id: string) {
-    return this.deleteCar.execute({ id });
+  async remove(@Param('id') id: string) {
+    return await this.deleteCar.execute({ id });
   }
 }

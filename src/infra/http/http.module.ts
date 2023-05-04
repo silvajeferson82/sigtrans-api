@@ -7,6 +7,7 @@ import {
   GetCarByIdUseCase,
   UpdateCarUseCase,
   DeleteCarUseCase,
+  GetCarByPlateUseCase,
 } from '../../application/useCases';
 
 @Module({
@@ -18,6 +19,7 @@ import {
     GetCarByIdUseCase,
     UpdateCarUseCase,
     DeleteCarUseCase,
+    GetCarByPlateUseCase,
   ], //useCases
 })
 export class HttpModule {}
