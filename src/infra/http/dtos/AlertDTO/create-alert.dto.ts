@@ -1,6 +1,23 @@
 import { IsEnum, IsNotEmpty, MaxLength } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
 
+enum EnumTipo {
+  BALCK = Enum_Tipo.BLACK,
+  WHITE = Enum_Tipo.WHITE,
+}
+
+enum EnumSituacao {
+  LIBERACAO = Enum_Situacao.LIBERACAO,
+  PERMISSAO = Enum_Situacao.PERMISSAO,
+  BLOQUEIO = Enum_Situacao.BLOQUEIO,
+  IMPEDIMENTO = Enum_Situacao.IMPEDIMENTO,
+}
+
+enum EnumStatus {
+  ATIVO = Enum_Status.ATIVO,
+  INATIVO = Enum_Status.INATIVO,
+}
+
 export class CreateAlertDTO {
   @ApiProperty({ maxLength: 30 })
   @IsNotEmpty({ message: 'Informe um nome' })
@@ -14,12 +31,12 @@ export class CreateAlertDTO {
   descricao: string;
 
   @ApiProperty()
-  @IsEnum(Enum_Tipo)
+  @IsEnum(EnumTipo)
   @IsNotEmpty({ message: 'Informe tipo: "white"/"black" ' })
   tipo: Enum_Tipo;
 
   @ApiProperty()
-  @IsEnum(Enum_Situacao)
+  @IsEnum(EnumSituacao)
   @IsNotEmpty({
     message:
       'Informe situação: "liberação","permissão","bloqueio", "impedimento"',
@@ -27,7 +44,7 @@ export class CreateAlertDTO {
   situacao: Enum_Situacao;
 
   @ApiProperty()
-  @IsEnum(Enum_Status)
+  @IsEnum(EnumStatus)
   @IsNotEmpty({ message: 'Informe status: "ativo"/"inativo"' })
   status: Enum_Status;
 }

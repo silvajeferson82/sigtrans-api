@@ -63,7 +63,7 @@ declare interface IAlert {
 declare interface IRequestAlert {
   nome: string;
   descricao: string;
-  tipo: Enum_Tipo;
+  tipo: Enum_Tipo | string;
   situacao: Enum_Situacao;
   status: Enum_Status;
   createdAt?: Date;
@@ -81,4 +81,5 @@ declare interface HTTPRequestObject {
   create?: IRequestCar;
   update?: IRequestCar;
   createAlert?: IRequestAlert;
+  updateAlert?: IRequestAlert;
 }
