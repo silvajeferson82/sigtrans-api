@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { ConflictException, Injectable } from '@nestjs/common';
 import { CarEntity } from '../../domain/entities/car.entity';
 import { CarRepository } from '../../domain/repositories/car-repository';
 import { PrismaService } from './prisma/prisma.service';
@@ -14,11 +14,20 @@ export class CarRepositoryPrisma implements CarRepository {
     return result;
   }
   async create(data: IRequestCar): Promise<CarEntity> {
-    const result = await this.prisma.car.create({
-      data,
-    });
+    try {
+      const result = await this.prisma.car.create({
+        data,
+      });
 
-    return result;
+      return result;
+    } catch (error) {
+      if (error.code === 'P2002') {
+        throw new ConflictException(
+          `O valor informado para o campo ('${error.meta.target[0]}') já está em uso`,
+        );
+      }
+      throw error;
+    }
   }
   async findAll(): Promise<CarEntity[]> {
     const result = await this.prisma.car.findMany();
@@ -33,12 +42,21 @@ export class CarRepositoryPrisma implements CarRepository {
     return result;
   }
   async update(id: string, data: IRequestCar): Promise<CarEntity> {
-    const result = await this.prisma.car.update({
-      where: { id },
-      data: { ...data },
-    });
+    try {
+      const result = await this.prisma.car.update({
+        where: { id },
+        data: { ...data },
+      });
 
-    return result;
+      return result;
+    } catch (error) {
+      if (error.code === 'P2002') {
+        throw new ConflictException(
+          `O valor informado para o campo ('${error.meta.target[0]}') já está em uso`,
+        );
+      }
+      throw error;
+    }
   }
   async remove(id: string): Promise<CarEntity> {
     const result = await this.prisma.car.delete({

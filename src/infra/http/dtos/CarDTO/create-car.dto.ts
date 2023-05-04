@@ -1,12 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { Transform } from 'class-transformer';
-import {
-  IsDate,
-  IsInt,
-  IsNotEmpty,
-  IsOptional,
-  IsString,
-} from 'class-validator';
+import { IsInt, IsNotEmpty, IsString } from 'class-validator';
 
 export class CreateCarDto {
   @IsNotEmpty({ message: 'Informe a placa' })
@@ -53,12 +46,4 @@ export class CreateCarDto {
   @IsNotEmpty({ message: 'Informe o ano' })
   @ApiProperty()
   ano: number;
-
-  // @IsOptional()
-  // @IsDate()
-  // createdAt: Date = new Date();
-
-  // @IsOptional()
-  // @IsDate()
-  // updatedAt: Date = new Date();
 }
