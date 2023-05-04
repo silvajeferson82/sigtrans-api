@@ -15,13 +15,13 @@ export class AlertEntity implements IAlert {
   descricao: string;
 
   @ApiProperty()
-  tipo: Enum_Tipo;
+  tipo: Enum_Tipo | string;
 
   @ApiProperty()
-  situacao: Enum_Situacao;
+  situacao: Enum_Situacao | string;
 
   @ApiProperty()
-  status: Enum_Status;
+  status: Enum_Status | string;
 
   @ApiProperty()
   createdAt: Date;

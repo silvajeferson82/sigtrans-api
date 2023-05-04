@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
-import { CarEntity } from 'src/application/entities/car.entity';
-import { CarRepository } from '../../repositories/car-repository';
+import { CarEntity } from '../../../domain/entities/car.entity';
+import { CarRepository } from '../../../domain/repositories/car-repository';
+
 import { UseCase } from '../useCases';
 
 @Injectable()

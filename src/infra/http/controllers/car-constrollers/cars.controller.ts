@@ -8,7 +8,7 @@ import {
   Delete,
 } from '@nestjs/common';
 import { ApiCreatedResponse, ApiOkResponse, ApiTags } from '@nestjs/swagger';
-import { CarEntity } from '../../../../application/entities/car.entity';
+import { CarEntity } from '../../../../domain/entities/car.entity';
 import {
   CreateCarUseCase,
   GetCarsUseCase,
