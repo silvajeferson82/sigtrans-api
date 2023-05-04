@@ -1,5 +1,4 @@
 import { Injectable } from '@nestjs/common';
-import { Prisma } from '@prisma/client';
 import { CarEntity } from 'src/application/entities/car.entity';
 import { CarRepository } from 'src/application/repositories/car-repository';
 import { PrismaService } from './prisma/prisma.service';
@@ -7,23 +6,38 @@ import { PrismaService } from './prisma/prisma.service';
 @Injectable()
 export class CarRepositoryPrisma implements CarRepository {
   constructor(private readonly prisma: PrismaService) {}
-  async create(car: Prisma.CarCreateInput): Promise<CarEntity> {
-    const newCar = await this.prisma.car.create({
-      data: car,
+  async create(data: IRequestCar): Promise<CarEntity> {
+    const result = await this.prisma.car.create({
+      data,
     });
 
-    return newCar;
+    return result;
   }
-  findAll(): Promise<CarEntity[]> {
-    throw new Error('Method not implemented.');
+  async findAll(): Promise<CarEntity[]> {
+    const result = await this.prisma.car.findMany();
+
+    return result;
   }
-  findOne(id: string): Promise<CarEntity> {
-    throw new Error('Method not implemented.');
+  async findOne(id: string): Promise<CarEntity> {
+    const result = await this.prisma.car.findUnique({
+      where: { id },
+    });
+
+    return result;
   }
-  update(id: string, car: CarEntity): Promise<CarEntity> {
-    throw new Error('Method not implemented.');
+  async update(id: string, data: IRequestCar): Promise<CarEntity> {
+    const result = await this.prisma.car.update({
+      where: { id },
+      data: { ...data },
+    });
+
+    return result;
   }
-  remove(id: string): Promise<CarEntity> {
-    throw new Error('Method not implemented.');
+  async remove(id: string): Promise<CarEntity> {
+    const result = await this.prisma.car.delete({
+      where: { id },
+    });
+
+    return result;
   }
 }
