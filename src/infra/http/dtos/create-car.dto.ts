@@ -9,10 +9,6 @@ import {
 } from 'class-validator';
 
 export class CreateCarDto {
-  // @IsString()
-  // @ApiProperty()
-  // id: string;
-
   @IsNotEmpty({ message: 'Informe a placa' })
   @IsString()
   @ApiProperty()
@@ -58,12 +54,11 @@ export class CreateCarDto {
   @ApiProperty()
   ano: number;
 
-  // @Transform(({ value }) => new Date())
-  @IsOptional()
-  @IsDate()
-  createdAt: Date = new Date();
+  // @IsOptional()
+  // @IsDate()
+  // createdAt: Date = new Date();
 
-  @IsOptional()
-  @IsDate()
-  updatedAt: Date = new Date();
+  // @IsOptional()
+  // @IsDate()
+  // updatedAt: Date = new Date();
 }

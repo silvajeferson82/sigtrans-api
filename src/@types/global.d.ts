@@ -20,7 +20,6 @@ declare interface ICar {
 }
 
 declare interface IRequestCar {
-  id: string;
   placa: string;
   chassi: string;
   marca: string;
@@ -30,9 +29,18 @@ declare interface IRequestCar {
   tipo: string;
   especie: string;
   ano: number;
+  createdAt?: Date;
+  updatedAt?: Date;
+
+}
+
+declare interface ICreateCar {
+  car: ICar;
 }
 
 declare interface HTTPRequestObject {
-  car?: Car;
-  id: string;
+  car?: ICar;
+  id?: string;
+  create?: IRequestCar;
+  update?: IRequestCar;
 }
