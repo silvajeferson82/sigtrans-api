@@ -53,9 +53,9 @@ declare enum Enum_Status {
 declare interface IAlert {
   nome: string;
   descricao: string;
-  tipo: Enum_Tipo;
-  situacao: Enum_Situacao;
-  status: Enum_Status;
+  tipo: Enum_Tipo | string;
+  situacao: Enum_Situacao | string;
+  status: Enum_Status | string;
   createdAt: Date;
   updatedAt: Date;
 }
