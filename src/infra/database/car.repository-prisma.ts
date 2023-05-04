@@ -6,6 +6,13 @@ import { PrismaService } from './prisma/prisma.service';
 @Injectable()
 export class CarRepositoryPrisma implements CarRepository {
   constructor(private readonly prisma: PrismaService) {}
+  async findByPlate(placa: string): Promise<CarEntity> {
+    const result = await this.prisma.car.findUnique({
+      where: { placa },
+    });
+
+    return result;
+  }
   async create(data: IRequestCar): Promise<CarEntity> {
     const result = await this.prisma.car.create({
       data,
