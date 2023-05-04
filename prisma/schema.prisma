@@ -29,7 +29,7 @@ model Car {
   @@map("cars")
 }
 
-model Situation {
+model Alert {
   id        String      @id @default(uuid())
   nome      String
   descricao String
@@ -40,16 +40,16 @@ model Situation {
   updatedAt DateTime    @updatedAt
   veiculos  CarAlert[]
 
-  @@map("situations")
+  @@map("alerts")
 }
 
 model CarAlert {
   id        String      @id @default(uuid())
-  situationId  String
+  alertId  String
   carId String
   createdAt DateTime    @default(now())
-  alerta    Situation   @relation(fields: [situationId], references: [id])
+  alerta    Alert   @relation(fields: [alertId], references: [id])
   veiculo   Car         @relation(fields: [carId], references: [id])
 
-  @@map("alerts")
+  @@map("alerts_cars")
 }
