@@ -70,6 +70,24 @@ declare interface IRequestAlert {
   updatedAt?: Date;
 }
 
+declare interface IAlertCar {
+  id: string;
+  alertId: string;
+  carId: string;
+  createdAt: Date;
+  updatedAt?: Date;
+  alerta?: IAlert;
+  veiculo?: ICar;
+}
+declare interface IRequestAlertCar {
+  alertId: string;
+  carId: string;
+  createdAt?: Date;
+  updatedAt?: Date;
+  alerta?: IAlert;
+  veiculo?: ICar;
+}
+
 declare interface ICreateCar {
   car: ICar;
 }

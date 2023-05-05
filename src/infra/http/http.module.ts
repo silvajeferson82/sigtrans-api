@@ -14,6 +14,7 @@ import {
   GetAlertsUseCase,
   UpdateAlertUseCase,
   DeleteAlertUseCase,
+  CreateAlertCarUseCase,
 } from '../../application/useCases';
 import { CarsMiddleware } from './middlewares/cars.middleware';
 import { ChassiMiddleware } from './middlewares/chassi.middleware';
@@ -24,6 +25,7 @@ import { PlacaMiddleware } from './middlewares/placa.middleware';
   controllers: [CarsController, AlertsController],
   providers: [
     CreateCarUseCase,
+    CreateAlertCarUseCase,
     GetCarsUseCase,
     GetCarByIdUseCase,
     UpdateCarUseCase,

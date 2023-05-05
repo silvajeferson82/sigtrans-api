@@ -83,7 +83,7 @@ $ npm run start:prod
 
 ## Swagger
 ```bash
-# http://localhost:3000/api
+# http://localhost:3000/api-docs
 ```
 <p align="center">
 

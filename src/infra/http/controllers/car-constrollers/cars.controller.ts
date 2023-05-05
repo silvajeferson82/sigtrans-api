@@ -16,8 +16,10 @@ import {
   UpdateCarUseCase,
   DeleteCarUseCase,
   GetCarByPlateUseCase,
+  CreateAlertCarUseCase,
 } from '../../../../application/useCases';
 import { CreateCarDto } from '../../dtos/CarDTO/create-car.dto';
+import { CreateAlertCarDTO } from '../../dtos/AlertCarDTO/create-alertCar.dto';
 import { UpdateCarDto } from '../../dtos/CarDTO/update-car.dto';
 
 @Controller('cars')
@@ -30,6 +32,7 @@ export class CarsController {
     private readonly updateCars: UpdateCarUseCase,
     private readonly deleteCar: DeleteCarUseCase,
     private readonly getCarByPlate: GetCarByPlateUseCase,
+    private readonly createAlertCar: CreateAlertCarUseCase,
   ) { }
 
   @Post()
@@ -54,6 +57,12 @@ export class CarsController {
   @ApiOkResponse({ type: CarEntity })
   async findByPlate(@Param('plate') plate: string) {
     return await this.getCarByPlate.execute({ placa: plate });
+  }
+
+  @Post('alert')
+  @ApiCreatedResponse({ type: CarEntity })
+  async createAlert(@Body() createAlertcarDTO: CreateAlertCarDTO) {
+    return await this.createAlertCar.execute(createAlertcarDTO);
   }
 
   @Patch(':id')
