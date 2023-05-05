@@ -45,10 +45,11 @@ model Alert {
 
 model CarAlert {
   id        String      @id @default(uuid())
-  alertId  String
-  carId String
+  alertId   String      @unique
+  carId     String      
   createdAt DateTime    @default(now())
-  alerta    Alert   @relation(fields: [alertId], references: [id])
+  updatedAt DateTime    @default(now())
+  alerta    Alert       @relation(fields: [alertId], references: [id])
   veiculo   Car         @relation(fields: [carId], references: [id])
 
   @@map("alerts_cars")
