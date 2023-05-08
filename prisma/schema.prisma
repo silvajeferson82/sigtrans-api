@@ -45,8 +45,8 @@ model Alert {
 
 model CarAlert {
   id        String      @id @default(uuid())
-  alertId   String      @unique
-  carId     String      
+  alertId   String      
+  carId     String      @unique
   createdAt DateTime    @default(now())
   updatedAt DateTime    @default(now())
   alerta    Alert       @relation(fields: [alertId], references: [id])
