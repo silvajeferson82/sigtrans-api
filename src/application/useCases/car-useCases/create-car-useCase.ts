@@ -9,9 +9,8 @@ export class CreateCarUseCase implements UseCase<IRequestCar, CarEntity> {
   constructor(private readonly carRepository: CarRepository) {}
 
   async execute(data: IRequestCar): Promise<CarEntity> {
-    const { placa, chassi } = data;
-    data.placa = convertUpperCase(placa);
-    data.chassi = convertUpperCase(chassi);
+    data.placa = convertUpperCase(data.placa);
+    data.chassi = convertUpperCase(data.chassi);
     try {
       const created = await this.carRepository.create(data);
 

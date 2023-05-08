@@ -17,10 +17,14 @@ import {
   DeleteCarUseCase,
   GetCarByPlateUseCase,
   CreateAlertCarUseCase,
+  UpdateAlertCarUseCase,
 } from '../../../../application/useCases';
 import { CreateCarDto } from '../../dtos/CarDTO/create-car.dto';
 import { CreateAlertCarDTO } from '../../dtos/AlertCarDTO/create-alertCar.dto';
 import { UpdateCarDto } from '../../dtos/CarDTO/update-car.dto';
+import { UpdateAlertCartDto } from '../../dtos/AlertCarDTO/update-alertCar.dto';
+import { AlertEntity } from '../../../../domain/entities/alert.entity';
+import { AlertCarEntity } from '../../../../domain/entities/alert-car.entity';
 
 @Controller('cars')
 @ApiTags('cars')
@@ -33,7 +37,8 @@ export class CarsController {
     private readonly deleteCar: DeleteCarUseCase,
     private readonly getCarByPlate: GetCarByPlateUseCase,
     private readonly createAlertCar: CreateAlertCarUseCase,
-  ) { }
+    private readonly updateAlertCar: UpdateAlertCarUseCase,
+  ) {}
 
   @Post()
   @ApiCreatedResponse({ type: CarEntity })
@@ -59,17 +64,27 @@ export class CarsController {
     return await this.getCarByPlate.execute({ placa: plate });
   }
 
-  @Post('alert')
-  @ApiCreatedResponse({ type: CarEntity })
-  async createAlert(@Body() createAlertcarDTO: CreateAlertCarDTO) {
-    return await this.createAlertCar.execute(createAlertcarDTO);
-  }
-
   @Patch(':id')
   @ApiOkResponse({ type: CarEntity })
   async update(@Param('id') id: string, @Body() updateCarDto: UpdateCarDto) {
     const data = { id, updateCarDto };
     return await this.updateCars.execute(data);
+  }
+
+  @Post('alert')
+  @ApiCreatedResponse({ type: AlertCarEntity })
+  async createAlert(@Body() createAlertcarDTO: CreateAlertCarDTO) {
+    return await this.createAlertCar.execute(createAlertcarDTO);
+  }
+
+  @Patch('alert/:id')
+  @ApiOkResponse({ type: AlertCarEntity })
+  async updateAlert(
+    @Param('id') id: string,
+    @Body() updateAlertCarDto: UpdateAlertCartDto,
+  ) {
+    const data = { id, updateAlertCarDto };
+    return await this.updateAlertCar.execute(data);
   }
 
   @Delete(':id')

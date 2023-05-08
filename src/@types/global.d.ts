@@ -93,9 +93,10 @@ declare interface ICreateCar {
 }
 
 declare interface HTTPRequestObject {
-  car?: ICar;
   id?: string;
+  carId?: string;
   placa?: string;
+  car?: ICar;
   create?: IRequestCar;
   update?: IRequestCar;
   createAlert?: IRequestAlert;

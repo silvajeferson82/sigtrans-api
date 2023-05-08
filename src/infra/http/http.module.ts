@@ -1,4 +1,9 @@
-import { MiddlewareConsumer, Module, NestModule, RequestMethod } from '@nestjs/common';
+import {
+  MiddlewareConsumer,
+  Module,
+  NestModule,
+  RequestMethod,
+} from '@nestjs/common';
 import { DatabaseModule } from '../database/database.module';
 import { CarsController } from './controllers/car-constrollers/cars.controller';
 import { AlertsController } from './controllers/alert-controller/alerts.controller';
@@ -15,10 +20,12 @@ import {
   UpdateAlertUseCase,
   DeleteAlertUseCase,
   CreateAlertCarUseCase,
+  UpdateAlertCarUseCase,
 } from '../../application/useCases';
 import { CarsMiddleware } from './middlewares/cars.middleware';
 import { ChassiMiddleware } from './middlewares/chassi.middleware';
 import { PlacaMiddleware } from './middlewares/placa.middleware';
+import { StateGateway } from '../../application/gateway/state.gateway';
 
 @Module({
   imports: [DatabaseModule],
@@ -36,6 +43,8 @@ import { PlacaMiddleware } from './middlewares/placa.middleware';
     GetAlertsUseCase,
     UpdateAlertUseCase,
     DeleteAlertUseCase,
+    UpdateAlertCarUseCase,
+    StateGateway,
   ], //useCases
 })
 export class HttpModule implements NestModule {

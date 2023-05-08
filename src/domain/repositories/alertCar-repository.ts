@@ -5,7 +5,7 @@ export abstract class AlertCarRepository {
   abstract findAll(): Promise<AlertCarEntity[]>;
   abstract findOne(id: string): Promise<AlertCarEntity>;
   abstract update(
-    id: string,
+    carId: string,
     alertCar: IRequestAlertCar,
   ): Promise<AlertCarEntity>;
   abstract remove(id: string): Promise<AlertCarEntity>;

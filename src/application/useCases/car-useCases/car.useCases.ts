@@ -5,3 +5,4 @@ export * from './update-car-useCase';
 export * from './delete-car-useCse';
 export * from './get-car-byPlate-useCase';
 export * from './create-alertCar-useCase';
+export * from './update-alertCar-useCase';
